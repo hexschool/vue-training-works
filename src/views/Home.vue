@@ -15,9 +15,11 @@
       </div>
 
       <Card @openModal="openModal" :cards="item" v-for="item in filter" :key="item.id"></Card>
+      <!--
       <div class="col-12">
         <Pagination></Pagination>
       </div>
+      -->
     </div>
   </div>
   <Modal :work="work" />
@@ -28,13 +30,13 @@
 import $ from 'jquery';
 import Modal from '@/components/Modal.vue';
 import Card from '@/components/Card.vue';
-import Pagination from '@/components/Pagination.vue';
+// import Pagination from '@/components/Pagination.vue';
 
 export default {
   name: 'Home',
   components: {
     Card,
-    Pagination,
+    // Pagination,
     Modal,
   },
   data() {
