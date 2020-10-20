@@ -7,10 +7,19 @@
     <div class="row">
       <div class="col-12">
         <form class="form-inline my-2 my-lg-0">
+          <div class="form-group">
+            <label for="exampleFormControlSelect1" class="sr-only">課程分類</label>
+            <select class="form-control ml-1" id="exampleFormControlSelect1" v-model="selectText" @change="selectData">
+              <option selected disabled>請選擇課程分類</option>
+              <option v-for="(item, id) in select" :key="id" :value="item">
+                {{ item }}
+              </option>
+            </select>
+          </div>
           <a href="#" class="search-btn ml-md-auto py-4" @click.prevent="search">
             <img src="./../assets/images/search.svg" alt="search" />
           </a>
-          <input class="form-control ml-2 slidein" :class="{'slideout':isSearch }" v-model="searchText" type="search" placeholder="搜尋作品" aria-label="Search" />
+          <input class="form-control ml-2 slidein" :class="{ slideout: isSearch }" v-model="searchText" type="search" placeholder="搜尋作品" aria-label="Search" />
         </form>
       </div>
 
@@ -45,12 +54,17 @@ export default {
       work: {},
       isSearch: false,
       sourceData: [],
+      select: [],
+      selectText: '',
+      cacheData: [],
     };
   },
   methods: {
     async getData() {
       await this.axios.get(process.env.VUE_APP_PATH).then((res) => {
         this.sourceData = res.data;
+        this.cacheData = this.sourceData;
+        this.select = this.selectFilter();
       });
     },
     search() {
@@ -79,10 +93,19 @@ export default {
         window.location.hash = '';
       });
     },
+    selectFilter() {
+      const cacheArr = this.sourceData.map((item) => item.coures);
+      const set = new Set(cacheArr);
+      return set;
+    },
+    selectData() {
+      this.cacheData = this.sourceData.filter((item) => item.coures.match(this.selectText));
+    },
   },
   computed: {
     filter() {
-      return this.sourceData.filter((item) => item.title.match(this.searchText));
+      const reg = new RegExp(this.searchText, 'i');
+      return this.cacheData.filter((item) => item.title.match(reg));
     },
   },
   async created() {
