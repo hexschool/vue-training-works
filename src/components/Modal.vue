@@ -21,12 +21,12 @@
                   <img class="mr-2" src="../assets/images/fb.svg" alt="fb" />
                 </a>
                 <a v-if="work.social_github_link" :href="work.social_github_link">
-                  <img src="../assets/images/ig.svg" alt="ig" />
+                  <img src="../assets/images/github.svg" alt="github" />
                 </a>
               </div>
             </div>
             <div class="col-12 col-md-8">
-              <img class="img-fluid" :src="work.img_url" alt="ig" />
+              <img class="img-fluid" :src="work.img_url" alt="link" />
             </div>
           </div>
         </div>
