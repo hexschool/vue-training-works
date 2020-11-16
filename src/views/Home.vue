@@ -1,38 +1,57 @@
 <template>
-<div class="main">
-  <div class="py-6 bg-secondary">
-    <h1 class="container mb-0 text-center text-md-left">六角作品牆</h1>
-  </div>
-  <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <form class="form-inline my-2 my-lg-0">
-          <div class="form-group">
-            <label for="exampleFormControlSelect1" class="sr-only">課程分類</label>
-            <select class="form-control ml-1" id="exampleFormControlSelect1" v-model="selectText" @change="selectData">
-              <option selected disabled>請選擇課程分類</option>
-              <option v-for="(item, id) in select" :key="id" :value="item">
-                {{ item }}
-              </option>
-            </select>
-          </div>
-          <a href="#" class="search-btn ml-md-auto py-4" @click.prevent="search">
-            <img src="./../assets/images/search.svg" alt="search" />
-          </a>
-          <input class="form-control ml-2 slidein" :class="{ slideout: isSearch }" v-model="searchText" type="search" placeholder="搜尋作品" aria-label="Search" />
-        </form>
-      </div>
+  <div class="main">
+    <div class="py-5 bg-secondary">
+      <h1 class="container mb-0 text-center text-md-left">六角作品牆</h1>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <form>
+            <div class="row py-5 justify-content-between">
+              <div class="col-12 col-md-6 mb-2 mb-md-0">
+                <label for="exampleFormControlSelect1" class="sr-only"
+                  >課程分類</label
+                >
+                <select
+                  class="form-control"
+                  id="exampleFormControlSelect1"
+                  v-model="selectText"
+                  @change="selectData"
+                >
+                  <option disabled value="">請選擇課程分類</option>
+                  <option v-for="(item, id) in select" :key="id" :value="item">
+                    {{ item }}
+                  </option>
+                </select>
+              </div>
 
-      <Card @openModal="openModal" :cards="item" v-for="item in filter" :key="item.id"></Card>
-      <!--
+              <div class="col-12 col-md-6">
+                <input
+                  class="form-control"
+                  v-model="searchText"
+                  type="search"
+                  placeholder="搜尋作品"
+                  aria-label="Search"
+                />
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <Card
+          @openModal="openModal"
+          :cards="item"
+          v-for="item in filter"
+          :key="item.id"
+        ></Card>
+        <!--
       <div class="col-12">
         <Pagination></Pagination>
       </div>
-      -->
+      --></div>
     </div>
+    <Modal :work="work" />
   </div>
-  <Modal :work="work" />
-</div>
 </template>
 
 <script>
@@ -121,17 +140,5 @@ export default {
 <style lang="scss" scoped>
 .main {
   min-height: calc(100vh - 120px);
-}
-
-.slidein {
-  transition: max-width 0.8s ease-in-out;
-  max-width: 0;
-  opacity: 0;
-}
-
-.slideout {
-  transition: max-width 0.8s ease-in-out;
-  max-width: 88%;
-  opacity: 1;
 }
 </style>

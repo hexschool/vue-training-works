@@ -12,7 +12,7 @@
                 <p class="modal-text">{{ work.description }}</p>
                 <footer class="blockquote-footer text-right"><cite :title="work.name">{{ work.name }}</cite></footer>
               </blockquote>
-              <a :href="work.url">
+              <a :href="work.url" target="_blank">
                 作品連結
                 <img src="./../assets/images/link.svg" />
               </a>
