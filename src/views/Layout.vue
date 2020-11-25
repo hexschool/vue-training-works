@@ -1,9 +1,9 @@
 <template>
 <div class="layout">
-  <header class="py-3 pl-4">
-    <a href="logo">
+  <header class="py-3 d-flex justify-content-center">
+    <router-link to="/">
       <img src="./../assets/images/logo-hexschool.svg" alt="hexschool-logo" />
-    </a>
+    </router-link>
   </header>
   <router-view></router-view>
   <footer class="bg-light py-3 mt-5">

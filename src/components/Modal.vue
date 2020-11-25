@@ -1,5 +1,5 @@
 <template>
-<div class="modal fade bd-example-modal-lg" id="vueModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade bd-example-modal-lg" id="vueModal" ref="vueModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-body">
@@ -21,7 +21,7 @@
                   <img class="mr-2" src="../assets/images/fb.svg" alt="fb" />
                 </a>
                 <a v-if="work.social_github_link" :href="work.social_github_link">
-                  <img src="../assets/images/github.svg" alt="github" />
+                  <i class="fas fa-external-link-alt"></i>
                 </a>
               </div>
             </div>

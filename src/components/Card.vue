@@ -1,13 +1,13 @@
 <template>
 <div class="col-md-4" v-if="cards.is_display === '是'">
 
-  <div class="card" @click="emitCard(cards)">
-    <img class="card-img-top" :src="cards.img_url" :alt="cards.title" />
-    <div class="card-body border-top d-flex justify-content-between align-items-end">
-      <h2 href="#" class="h6 card-title mb-0">{{ cards.title }}</h2>
-      <a :href="cards.url" class="card-link" target="_blank">
+  <div class="card" @click="emitCard(cards)"
+    :style="{ backgroundImage: `url(${cards.img_url})` }">
+    <div class="card-body d-flex justify-content-between align-items-end">
+      <h2 class="h6 card-title mb-0 text-white">{{ cards.title }}</h2>
+      <a :href="cards.url" class="card-link text-white" target="_blank">
         作品連結
-        <img src="./../assets/images/link.svg" />
+        <i class="fas fa-external-link-alt"></i>
       </a>
     </div>
   </div>
@@ -31,24 +31,20 @@ export default {
 
 <style lang="scss">
 .card {
-  box-shadow: 0px 3px 6px #00000029;
   overflow: hidden;
   cursor: pointer;
-
-  &:hover .card-img-top {
-    transform: scale(1.1, 1.1);
-  }
-
-  &-img-top {
-    transform: scale(1, 1);
-    transition: all 0.4s ease-out;
-    height: 180px;
-    object-fit: cover;
+  background-size: cover;
+  background-position: center center;
+  height: 250px;
+  transition: box-shadow .35s;
+  &:hover {
+    box-shadow: 0px 3px 15px #00000045;
   }
 }
-
-.card-img-top {
-  transform: scale(1, 1);
-  transition: all 0.4s ease-out;
+.card-body {
+  background-image: linear-gradient(360deg, rgba(0, 0, 0, .6) 60%, transparent);
+  background-size: 100% 60px;
+  background-position-y: bottom;
+  background-repeat: no-repeat;
 }
 </style>

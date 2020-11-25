@@ -2,68 +2,68 @@
   <div class="main">
     <div class="bg-cover bg-secondary"></div>
     <div class="container">
-      <div class="row g-5">
-        <div class="col-12">
-          <form>
-            <div class="row pt-5 justify-content-between">
-              <div class="col-12 col-md-6 mb-2 mb-md-0">
-                <label for="exampleFormControlSelect1" class="visually-hidden"
-                  >課程分類</label
-                >
-                <select
-                  class="form-control"
-                  id="exampleFormControlSelect1"
-                  v-model="selectText"
-                  @change="selectData"
-                >
-                  <option disabled value="">請選擇課程分類</option>
-                  <option v-for="(item, id) in select" :key="id" :value="item">
-                    {{ item }}
-                  </option>
-                </select>
-              </div>
-
-              <div class="col-12 col-md-6">
-                <input
-                  class="form-control"
-                  v-model="searchText"
-                  type="search"
-                  placeholder="搜尋作品"
-                  aria-label="Search"
-                />
-              </div>
-            </div>
-          </form>
+      <form class="row py-5 justify-content-between">
+        <div class="col-md-6 mb-2 mb-md-0">
+          <div class="form-floating">
+            <select
+              class="form-select"
+              id="FormControlSelect1"
+              v-model="selectText"
+              @change="selectData"
+            >
+              <option value="">全部</option>
+              <option v-for="(item, id) in select" :key="id" :value="item">
+                {{ item }}
+              </option>
+            </select>
+            <label for="FormControlSelect1"
+              >課程分類</label>
+          </div>
         </div>
 
+        <div class="col-md-6">
+          <div class="form-floating">
+            <input
+              class="form-control"
+              v-model="searchText"
+              type="search"
+              placeholder="搜尋作品"
+              aria-label="Search"
+            />
+            <label for="searchText">搜尋作品</label>
+          </div>
+        </div>
+      </form>
+      <div class="row g-4">
         <Card
           @openModal="openModal"
           :cards="item"
-          v-for="item in filter"
+          v-for="item in filter[currentPage]"
           :key="item.id"
         ></Card>
-        <!--
-      <div class="col-12">
-        <Pagination></Pagination>
       </div>
-      --></div>
+      <Pagination class="mt-4"
+        :current-page="currentPage"
+        :total-page="totalPage"
+        @update-page="updatePage">
+      </Pagination>
     </div>
-    <Modal :work="work" />
+    <WorkModal :work="work" ref="modal"/>
   </div>
 </template>
 
 <script>
-import $ from 'jquery';
-import Modal from '@/components/Modal.vue';
+import { Modal } from 'bootstrap';
+import WorkModal from '@/components/Modal.vue';
 import Card from '@/components/Card.vue';
-// import Pagination from '@/components/Pagination.vue';
+import Pagination from '@/components/Pagination.vue';
 
 export default {
   name: 'Home',
   components: {
     Card,
-    // Pagination,
-    Modal,
+    Pagination,
+    WorkModal,
   },
   data() {
     return {
@@ -74,6 +74,9 @@ export default {
       select: [],
       selectText: '',
       cacheData: [],
+      modal: {},
+      totalPage: 0,
+      currentPage: 0,
     };
   },
   methods: {
@@ -91,12 +94,9 @@ export default {
       this.work = item;
       // 雖然可以使用 this.$router.push(`?id=${item.id}`)
       // 但是若第二次點擊是會出現錯誤的，所以使用 location.hash 最保險
-      window.location.hash = `?id=${item.id}`;
-      $('#vueModal').modal('show');
-
-      $('#vueModal').on('hide.bs.modal', () => {
-        window.location.hash = '';
-      });
+      // window.location.hash = `?id=${item.id}`;
+      this.$router.push(`?id=${item.id}`);
+      this.modal.show();
     },
     hashModal(id) {
       this.sourceData.forEach((item) => {
@@ -104,11 +104,7 @@ export default {
           this.work = item;
         }
       });
-      $('#vueModal').modal('show');
-
-      $('#vueModal').on('hide.bs.modal', () => {
-        window.location.hash = '';
-      });
+      this.modal.show();
     },
     selectFilter() {
       const cacheArr = this.sourceData.map((item) => item.coures);
@@ -118,11 +114,31 @@ export default {
     selectData() {
       this.cacheData = this.sourceData.filter((item) => item.coures.match(this.selectText));
     },
+    updatePage(page) {
+      this.currentPage = page;
+    },
   },
   computed: {
     filter() {
       const reg = new RegExp(this.searchText, 'i');
-      return this.cacheData.filter((item) => item.title.match(reg));
+      const cacheData = this.cacheData.filter((item) => item.title.match(reg));
+
+      const newData = [];
+      // 分頁製作
+      cacheData.forEach((item, i) => {
+        if (i % 20 === 0) {
+          newData.push([]);
+        }
+        const page = parseInt(i / 20, 10);
+        newData[page].push(item);
+      });
+      return newData;
+    },
+  },
+  watch: {
+    filter() {
+      this.totalPage = this.filter.length; // 分頁數量
+      this.currentPage = 0;
     },
   },
   async created() {
@@ -130,6 +146,16 @@ export default {
 
     if (this.$route.query.id) {
       this.hashModal(this.$route.query.id);
+    }
+  },
+  mounted() {
+    if (this.$refs.modal) {
+      const modalDom = this.$refs.modal.$refs.vueModal;
+      this.modal = new Modal(modalDom);
+
+      modalDom.addEventListener('hidden.bs.modal', () => {
+        this.$router.push('/');
+      });
     }
   },
 };
