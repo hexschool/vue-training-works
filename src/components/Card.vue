@@ -1,7 +1,7 @@
 <template>
 <div class="col-md-4" v-if="cards.is_display === '是'">
 
-  <div class="card mb-5" @click="emitCard(cards)">
+  <div class="card" @click="emitCard(cards)">
     <img class="card-img-top" :src="cards.img_url" :alt="cards.title" />
     <div class="card-body border-top d-flex justify-content-between align-items-end">
       <h2 href="#" class="h6 card-title mb-0">{{ cards.title }}</h2>
@@ -41,7 +41,7 @@ export default {
 
   &-img-top {
     transform: scale(1, 1);
-    transition: all 0.5s ease-out;
+    transition: all 0.4s ease-out;
     height: 180px;
     object-fit: cover;
   }
@@ -49,6 +49,6 @@ export default {
 
 .card-img-top {
   transform: scale(1, 1);
-  transition: all 1s ease-out;
+  transition: all 0.4s ease-out;
 }
 </style>

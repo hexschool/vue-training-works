@@ -6,7 +6,7 @@
     </a>
   </header>
   <router-view></router-view>
-  <footer class="bg-light py-3">
+  <footer class="bg-light py-3 mt-5">
     <div class="container d-flex flex-column flex-md-row justify-content-md-between">
       <small class="mb-0 font-weight-normal">
         <a href="mailto:service@hexschool.com">聯絡我們</a>

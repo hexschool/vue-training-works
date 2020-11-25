@@ -1,15 +1,13 @@
 <template>
   <div class="main">
-    <div class="py-5 bg-secondary">
-      <h1 class="container mb-0 text-center text-md-left">六角作品牆</h1>
-    </div>
+    <div class="bg-cover bg-secondary"></div>
     <div class="container">
-      <div class="row">
+      <div class="row g-5">
         <div class="col-12">
           <form>
-            <div class="row py-5 justify-content-between">
+            <div class="row pt-5 justify-content-between">
               <div class="col-12 col-md-6 mb-2 mb-md-0">
-                <label for="exampleFormControlSelect1" class="sr-only"
+                <label for="exampleFormControlSelect1" class="visually-hidden"
                   >課程分類</label
                 >
                 <select
@@ -140,5 +138,17 @@ export default {
 <style lang="scss" scoped>
 .main {
   min-height: calc(100vh - 120px);
+}
+.bg-cover {
+  min-height: 200px;
+  background-image: url("../assets/images/banner1920.png");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+@media (max-width: 767px) {
+  .bg-cover {
+    background-image: url("../assets/images/banner1200.png");
+  }
 }
 </style>
