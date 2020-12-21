@@ -40,9 +40,6 @@ export default {
       this.$emit('update-page', page);
     },
   },
-  created() {
-    console.log(this.currentPage);
-  },
 };
 </script>
 
