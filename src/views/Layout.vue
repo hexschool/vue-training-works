@@ -6,7 +6,7 @@
       </router-link>
     </header>
     <router-view></router-view>
-    <footer class="bg-light pt-3 pb-6 mt-5">
+    <footer class="bg-light pt-3 pb-3 mt-5">
       <div
         class="container d-flex flex-column flex-md-row justify-content-md-between"
       >
@@ -20,6 +20,7 @@
     </footer>
       <nav
         class="navbar-fixed-bottom text-center text-white fixed-bottom bg-danger py-2"
+        v-if="countStatus = false"
       >
         <div class="container">
           <div
@@ -61,6 +62,7 @@ export default {
   data() {
     return {
       deadline: {
+        countStatus: false,
         seconds: 0,
         minutes: 0,
         hours: 0,
@@ -71,6 +73,7 @@ export default {
   methods: {
     countDown() {
       const countDownDate = new Date('Jan 17, 2021 23:59:59').getTime();
+      this.countStatus = true;
       setInterval((x) => {
         const now = new Date().getTime();
         const distance = countDownDate - now;
@@ -83,9 +86,9 @@ export default {
           (distance % (1000 * 60 * 60)) / (1000 * 60),
         );
         this.deadline.seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
         if (distance < 0) {
           clearInterval(x);
+          this.countStatus = false;
         }
       }, 1000);
     },
