@@ -1,6 +1,6 @@
 <template>
   <div class="layout">
-    <header class="py-3 d-flex justify-content-center">
+    <header class="container py-3 mb-3">
       <router-link to="/">
         <img src="./../assets/images/logo-hexschool.svg" alt="hexschool-logo" />
       </router-link>
@@ -14,7 +14,7 @@
           <a href="mailto:service@hexschool.com">聯絡我們</a>
         </small>
         <small class="mb-0 font-weight-normal">
-          Copyright © 2020 HexSchool.All rights reserved.
+          Copyright © 2021 HexSchool.All rights reserved.
         </small>
       </div>
     </footer>

@@ -3,3 +3,13 @@ body{
   font-size: 16px;
   line-height: 1.5;
 }
+
+.scrollBar::-webkit-scrollbar {
+  display: none;
+}
+
+.bg-cover {
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
