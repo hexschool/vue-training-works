@@ -250,6 +250,9 @@ export default {
     categoryText() {
       this.tagsSelect = this.selectFilter();
     },
+    $route() {
+      this.tagClicked();
+    },
   },
   async created() {
     this.tagClicked();
