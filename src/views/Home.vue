@@ -280,7 +280,7 @@ export default {
 }
 .card-img {
   position: relative;
-  opacity: 80%;
+  opacity: 0.8;
   min-height: 65px;
 }
 .All:hover {
