@@ -12,7 +12,7 @@
         <a class="page-link" href="#"
           @click.prevent="updatePage(i - 1)">{{ i }}</a>
       </li>
-      <li class="page-item" :class="{ disabled: currentPage => totalPage }">
+      <li class="page-item" :class="{ disabled: currentPage+1 === totalPage }">
         <a class="page-link" href="#" aria-label="Next"
           @click.prevent="updatePage(currentPage + 1)">
           <span aria-hidden="true">&raquo;</span>
