@@ -11,7 +11,7 @@
         />
         </template>
         <template v-else>
-          <img src="https://fakeimg.pl/415x290/?text=Coming Soon" class="img-fluid">
+          <img src="https://fakeimg.pl/415x312/?text=Coming Soon" class="img-fluid">
         </template>
         <span
           class="badge rounded-pill position-absolute start-3 top-3"
