@@ -10,7 +10,7 @@
       <li class="page-item" :class="{active: i - 1 === currentPage }"
         v-for="i in totalPage" :key="i">
         <a class="page-link" href="#"
-          @click.prevent="updatePage(i - 1)">{{ i }}</a>
+          @click.prevent="updatePage(i - 1)" v-if="i <= 5">{{ i }}</a>
       </li>
       <li class="page-item" :class="{ disabled: currentPage+1 === totalPage }">
         <a class="page-link" href="#" aria-label="Next"
