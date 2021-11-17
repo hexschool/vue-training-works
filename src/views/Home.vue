@@ -246,7 +246,7 @@ export default {
       return set;
     },
     updatePage(page) {
-      this.currentPage = page;
+      this.currentPage = page - 1;
     },
   },
   computed: {

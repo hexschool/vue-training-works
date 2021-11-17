@@ -1,5 +1,5 @@
 <template>
-  <div class="col-md-4" v-if="cards.is_display === '是'">
+  <div class="col-md-6 col-lg-4" v-if="cards.is_display === '是'">
     <div class="card" @mouseover="hover = true" @mouseleave="hover = false">
       <div class="position-relative">
         <template v-if="cards.thumbnail_small">
