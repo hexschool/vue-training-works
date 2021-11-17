@@ -2,7 +2,18 @@
   <div class="main">
     <div class="container">
       <nav class="mb-4">
-        <ul class="nav row .justify-content-start justify-content-md-center align-items-center flex-nowrap overflow-auto scrollBar">
+        <ul
+          class="
+            nav
+            row
+            .justify-content-start
+            justify-content-md-center
+            align-items-center
+            flex-nowrap
+            overflow-auto
+            scrollBar
+          "
+        >
           <li
             v-for="(item, id) in navigatorList"
             :key="id"
@@ -12,7 +23,13 @@
             <div class="card bg-dark text-white">
               <img :src="item.bg" class="card-img" :alt="item.name" />
               <div
-                class="card-img-overlay d-flex justify-content-center align-items-center" :class="item.course_tag"
+                class="
+                  card-img-overlay
+                  d-flex
+                  justify-content-center
+                  align-items-center
+                "
+                :class="item.course_tag"
               >
                 <h5 class="card-title text-center mb-0">{{ item.name }}</h5>
               </div>
@@ -47,15 +64,31 @@
       </form>
 
       <div class="row g-4">
-        <Card :cards="item" v-for="item in filter[currentPage]" :key="item.id" />
+        <Card
+          :cards="item"
+          v-for="item in filter[currentPage]"
+          :key="item.id"
+        />
       </div>
 
-      <Pagination
+      <!-- <Pagination
         class="mt-4"
         :current-page="currentPage"
         :total-page="totalPage"
         @update-page="updatePage"
-      />
+      /> -->
+      <div class="d-flex justify-content-center">
+        <paginate
+          :page-count="totalPage"
+          :click-handler="updatePage"
+          :prev-text="'&laquo;'"
+          :next-text="'&raquo;'"
+          :container-class="'pagination'" :page-class="'page-item'"
+          :page-link-class="'page-link'"
+          :prev-link-class="'page-link'"
+          :next-link-class="'page-link'">
+        </paginate>
+      </div>
     </div>
   </div>
 </template>
@@ -63,13 +96,13 @@
 <script>
 /* eslint-disable global-require */
 import Card from '@/components/Card.vue';
-import Pagination from '@/components/Pagination.vue';
+// import Pagination from '@/components/Pagination.vue';
 
 export default {
   name: 'Home',
   components: {
     Card,
-    Pagination,
+    // Pagination,
   },
   data() {
     return {
@@ -99,8 +132,7 @@ export default {
           name: 'UI',
           course_tag: 'UI',
           bg: require('../assets/images/ui.png'),
-          description:
-            '好的設計讓網站品質大加分！',
+          description: '好的設計讓網站品質大加分！',
         },
       ],
       courseName: '',
@@ -119,8 +151,10 @@ export default {
           name: '六角學院',
           course_tag: 'Vue',
           course: '課程介紹',
-          description: '看了學長姐作品，是否也想做一個呢？ 點擊觀看完整課程資訊',
+          description:
+            '看了學長姐作品，是否也想做一個呢？ 點擊觀看完整課程資訊',
           thumbnail_small: require('@/assets/images/vue_course.png'),
+          thumbnail: require('@/assets/images/vue_course.png'),
           url: 'https://www.hexschool.com/courses/vue-training.html',
           year: '2021',
           is_display: '是',
@@ -130,8 +164,10 @@ export default {
           name: '六角學院',
           course_tag: 'Bootstrap',
           course: '課程介紹',
-          description: '看了學長姐作品，是否也想做一個呢？ 點擊觀看完整課程資訊',
+          description:
+            '看了學長姐作品，是否也想做一個呢？ 點擊觀看完整課程資訊',
           thumbnail_small: require('@/assets/images/bootstrap_course.png'),
+          thumbnail: require('@/assets/images/bootstrap_course.png'),
           url: 'https://www.hexschool.com/courses/bootstrap5.html',
           year: '2021',
           is_display: '是',
@@ -141,8 +177,10 @@ export default {
           name: '六角學院',
           course_tag: 'UI',
           course: '課程介紹',
-          description: '看了學長姐作品，是否也想做一個呢？ 點擊觀看完整課程資訊',
+          description:
+            '看了學長姐作品，是否也想做一個呢？ 點擊觀看完整課程資訊',
           thumbnail_small: require('@/assets/images/ui_course.png'),
+          thumbnail: require('@/assets/images/ui_course.png'),
           url: 'https://www.hexschool.com/courses/ui-training.html',
           year: '2021',
           is_display: '是',
@@ -199,7 +237,8 @@ export default {
         }
       });
     },
-    selectFilter() { // 篩出下拉選單的項目
+    selectFilter() {
+      // 篩出下拉選單的項目
       const cacheArr = this.sourceData
         .filter((item) => item.course_tag === this.categoryText)
         .map((item) => item.course);
@@ -227,7 +266,9 @@ export default {
       }
 
       if (this.tagSelectText && this.searchText) {
-        cacheData = this.cacheData.filter((item) => item.title.match(reg)).filter((item) => item.course.match(this.tagSelectText));
+        cacheData = this.cacheData
+          .filter((item) => item.title.match(reg))
+          .filter((item) => item.course.match(this.tagSelectText));
       }
 
       const newData = [];
