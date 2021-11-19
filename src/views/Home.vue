@@ -6,7 +6,7 @@
           class="
             nav
             row
-            .justify-content-start
+            justify-content-start
             justify-content-md-center
             align-items-center
             flex-nowrap
@@ -29,7 +29,9 @@
                   justify-content-center
                   align-items-center
                 "
-                :class="item.course_tag"
+                :class="[
+                item.course_tag,
+                activeFn(item)]"
               >
                 <h5 class="card-title text-center mb-0">{{ item.name }}</h5>
               </div>
@@ -71,12 +73,6 @@
         />
       </div>
 
-      <!-- <Pagination
-        class="mt-4"
-        :current-page="currentPage"
-        :total-page="totalPage"
-        @update-page="updatePage"
-      /> -->
       <div class="d-flex justify-content-center">
         <paginate
           :page-count="totalPage"
@@ -96,13 +92,11 @@
 <script>
 /* eslint-disable global-require */
 import Card from '@/components/Card.vue';
-// import Pagination from '@/components/Pagination.vue';
 
 export default {
   name: 'Home',
   components: {
     Card,
-    // Pagination,
   },
   data() {
     return {
@@ -113,6 +107,7 @@ export default {
           bg: require('@/assets/images/all.png'),
           description:
             '六角學員作品牆，學員們依據自己的創意完成一屬於個人獨一無二的作品。',
+          active: 'all-active',
         },
         {
           name: 'Vue',
@@ -120,6 +115,7 @@ export default {
           bg: require('../assets/images/vue.png'),
           description:
             '最受歡迎的前端框架，六角學員們透過此框架完成屬於個人的獨一無二作品。',
+          active: 'vue-active',
         },
         {
           name: 'Bootstrap',
@@ -127,12 +123,14 @@ export default {
           bg: require('../assets/images/bootstrap.png'),
           description:
             '使用 Bootstrap 快速完成切版版型，從設計稿到可觀賞網頁的不二選擇！',
+          active: 'bootstrap-active',
         },
         {
           name: 'UI',
           course_tag: 'UI',
           bg: require('../assets/images/ui.png'),
           description: '好的設計讓網站品質大加分！',
+          active: 'ui-active',
         },
       ],
       courseName: '',
@@ -225,6 +223,15 @@ export default {
       this.tagSelectText = ''; // 切換時課程改為預設全部
 
       this.categoryData();
+    },
+    activeFn(item) {
+      if (this.categoryText === item.name) {
+        return item.active;
+      }
+      if (!this.categoryText && item.name === '全部') {
+        return 'all-active';
+      }
+      return '';
     },
     categoryData() {
       // 根據 course_tag 篩選 Card
@@ -324,15 +331,19 @@ export default {
   opacity: 0.8;
   min-height: 65px;
 }
+.all-active,
 .All:hover {
   background: #000000;
 }
+.vue-active,
 .Vue:hover {
   background: #3eaf7c;
 }
+.bootstrap-active,
 .Bootstrap:hover {
   background: #7952b3;
 }
+.ui-active,
 .UI:hover {
   background: #2962ff;
 }

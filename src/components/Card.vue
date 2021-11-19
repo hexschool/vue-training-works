@@ -3,47 +3,48 @@
     <div class="card" @mouseover="hover = true" @mouseleave="hover = false">
       <div class="position-relative">
         <template v-if="cards.thumbnail_small">
-        <img
-          :src="cards.thumbnail_small"
-          class="card-img-top"
-          :alt="cards.title"
-          style="height: 312px"
-        />
+          <img
+            :src="cards.thumbnail_small"
+            class="card-img-top border"
+            :alt="cards.title"
+            style="height: 312px"
+          />
         </template>
         <template v-else>
-          <img src="https://fakeimg.pl/415x312/?text=Coming Soon" class="img-fluid">
+          <img
+            src="https://fakeimg.pl/415x312/?text=Coming Soon"
+            class="img-fluid"
+          />
         </template>
         <span
           class="badge rounded-pill position-absolute start-3 top-3"
           :class="bgTag"
           >{{ cards.course }}</span
         >
-        <div
-          v-if="hover"
-          class="overlay w-100 position-absolute bottom-0 px-3"
-        >
-          <div class="d-flex justify-content-between text-white">
-            <h5 class="fs-6 mb-0">
-              作者：{{ cards.name }}
-            </h5>
-            <h5 class="fs-6 mb-0">
-              {{ cards.year }} 年
-            </h5>
+        <transition>
+          <div
+            v-show="hover"
+            class="overlay w-100 position-absolute bottom-0 px-3"
+          >
+            <div class="overlay-text d-flex justify-content-between text-white">
+              <h5 class="fs-6 mb-0">作者：{{ cards.name }}</h5>
+              <h5 class="fs-6 mb-0">{{ cards.year }} 年</h5>
+            </div>
+            <ul class="list-unstyled d-flex overflow-auto scrollBar">
+              <li class="mr-1" v-for="(item, id) in cards.tags" :key="id">
+                <span class="badge rounded-pill bg-primary">{{ item }}</span>
+              </li>
+            </ul>
           </div>
-          <ul class="list-unstyled d-flex overflow-auto scrollBar">
-            <li class="mr-1" v-for="(item, id) in cards.tags" :key="id">
-              <span class="badge rounded-pill bg-primary">{{ item }}</span>
-            </li>
-          </ul>
-        </div>
+        </transition>
       </div>
 
-      <div class="card-body d-flex">
+      <div class="card-body d-flex align-items-center">
         <a
           :href="cards.url"
           target="_blank"
           class="stretched-link mr-auto text-decoration-none"
-          ><h2 class="h6 card-title">{{ cards.title }}</h2></a
+          ><h2 class="h6 card-title mb-0">{{ cards.title }}</h2></a
         >
         <button
           type="button"
@@ -151,15 +152,29 @@ export default {
 .card-img-top {
   object-fit: cover;
 }
+.v-enter-active,.v-leave-active {
+  transition: opacity .25s;
+}
+.v-enter,
+.v-leave-to {
+  opacity: 0;
+}
+.v-enter-to,
+.v-leave {
+  opacity: 1;
+}
 .overlay {
-  background-image: linear-gradient(
-    360deg,
-    rgba(0, 0, 0, 0.6) 30%,
-    transparent
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.7) 100%
   );
-  background-size: 100% 35px;
+  background-size: 100%;
   background-position-y: bottom;
   background-repeat: no-repeat;
+}
+.overlay-text {
+  padding-top: 100px;
 }
 .vue {
   background: #3eaf7c;
