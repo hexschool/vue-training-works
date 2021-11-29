@@ -6,7 +6,7 @@
       </router-link>
     </header>
     <router-view></router-view>
-    <footer class="bg-light pt-3 pb-3 mt-5">
+    <footer class="bg-light pt-3 pb-6 mt-5">
       <div
         class="container d-flex flex-column flex-md-row justify-content-md-between"
       >
@@ -20,7 +20,7 @@
     </footer>
       <nav
         class="navbar-fixed-bottom text-center text-white fixed-bottom bg-danger py-2"
-        v-if="countStatus = false"
+        v-if="countStatus = true"
       >
         <div class="container">
           <div
@@ -42,7 +42,7 @@
               class="d-flex justify-content-md-start justify-content-end pl-md-3 pl-0"
             >
               <a
-                href="https://www.hexschool.com/courses/js-training.html"
+                href="https://www.hexschool.com/courses/vue-training.html"
                 target="_blank"
                 class="btn btn-dark btn-sm rounded-0"
               >
@@ -72,7 +72,7 @@ export default {
   },
   methods: {
     countDown() {
-      const countDownDate = new Date('Jan 17, 2021 23:59:59').getTime();
+      const countDownDate = new Date('Dec 9, 2021 23:59:59').getTime();
       this.countStatus = true;
       setInterval((x) => {
         const now = new Date().getTime();
