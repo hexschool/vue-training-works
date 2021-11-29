@@ -20,7 +20,7 @@
             class="nav-item col-2"
             @click="tagClicked(item.name, item.description)"
           >
-            <div class="card bg-dark text-white">
+            <div class="card text-white">
               <img :src="item.bg" class="card-img" :alt="item.name" />
               <div
                 class="
@@ -328,7 +328,7 @@ export default {
 }
 .card-img {
   position: relative;
-  opacity: 0.8;
+  opacity: 0.6;
   min-height: 65px;
 }
 .all-active,
