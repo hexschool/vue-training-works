@@ -6,7 +6,7 @@
       </router-link>
     </header>
     <router-view></router-view>
-    <footer class="bg-light pt-3 pb-6 mt-5">
+    <footer class="bg-light pt-3 pb-3 mt-5" :class="{'pb-6': deadline.countStatus}">
       <div
         class="container d-flex flex-column flex-md-row justify-content-md-between"
       >
@@ -20,7 +20,7 @@
     </footer>
       <nav
         class="navbar-fixed-bottom text-center text-white fixed-bottom bg-danger py-2"
-        v-if="countStatus = true"
+        v-if="deadline.countStatus"
       >
         <div class="container">
           <div
@@ -29,7 +29,7 @@
             <div
               class="d-flex flex-md-row flex-column text-white justify-content-md-end pr-md-3 pr-0"
             >
-              <span class="mr-md-5 font-weight-bold text-left">JS 嘉年華</span>
+              <span class="mr-md-5 font-weight-bold text-left">Vue 直播班 報名開放中</span>
 
               <div class="d-flex justify-content-start text-white text-nowrap">
                 <span class="font-weight-bold"
@@ -72,8 +72,8 @@ export default {
   },
   methods: {
     countDown() {
-      const countDownDate = new Date('Dec 9, 2021 23:59:59').getTime();
-      this.countStatus = true;
+      const countDownDate = new Date('Dec 9 2021 23:59:59').getTime();
+
       setInterval((x) => {
         const now = new Date().getTime();
         const distance = countDownDate - now;
@@ -88,7 +88,9 @@ export default {
         this.deadline.seconds = Math.floor((distance % (1000 * 60)) / 1000);
         if (distance < 0) {
           clearInterval(x);
-          this.countStatus = false;
+          this.deadline.countStatus = false;
+        } else {
+          this.deadline.countStatus = true;
         }
       }, 1000);
     },
