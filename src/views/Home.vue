@@ -2,8 +2,7 @@
   <div class="main">
     <div class="container">
       <nav class="mb-4">
-        <ul
-          class="
+        <ul class="
             nav
             row
             justify-content-start
@@ -12,27 +11,19 @@
             flex-nowrap
             overflow-auto
             scrollBar
-          "
-        >
-          <li
-            v-for="(item, id) in navigatorList"
-            :key="id"
-            class="nav-item col-2"
-            @click="tagClicked(item.name, item.description)"
-          >
+          ">
+          <li v-for="(item, id) in navigatorList" :key="id" class="nav-item col-2"
+            @click="tagClicked(item.name, item.description)">
             <div class="card text-white">
               <img :src="item.bg" class="card-img" :alt="item.name" />
-              <div
-                class="
+              <div class="
                   card-img-overlay
                   d-flex
                   justify-content-center
                   align-items-center
-                "
-                :class="[
-                item.course_tag,
-                activeFn(item)]"
-              >
+                " :class="[
+                  item.course_tag,
+                  activeFn(item)]">
                 <h5 class="card-title text-center mb-0">{{ item.name }}</h5>
               </div>
             </div>
@@ -46,13 +37,8 @@
 
       <form class="row justify-content-center align-items-center mb-6">
         <div class="col-md-4 mb-2 mb-md-0">
-          <input
-            class="form-control rounded-pill"
-            v-model="searchText"
-            type="search"
-            placeholder="搜尋此標籤下的作品"
-            aria-label="Search"
-          />
+          <input class="form-control rounded-pill" v-model="searchText" type="search" placeholder="搜尋此標籤下的作品"
+            aria-label="Search" />
         </div>
         <div class="col-md-2 mb-2 mb-md-0">
           <select class="form-select rounded-pill" v-model="tagSelectText">
@@ -66,23 +52,13 @@
       </form>
 
       <div class="row g-4">
-        <Card
-          :cards="item"
-          v-for="item in filter[currentPage]"
-          :key="item.id"
-        />
+        <Card :cards="item" v-for="item in filter[currentPage]" :key="item.id" />
       </div>
 
       <div class="d-flex justify-content-center">
-        <paginate
-          :page-count="totalPage"
-          :click-handler="updatePage"
-          :prev-text="'&laquo;'"
-          :next-text="'&raquo;'"
-          :container-class="'pagination'" :page-class="'page-item'"
-          :page-link-class="'page-link'"
-          :prev-link-class="'page-link'"
-          :next-link-class="'page-link'">
+        <paginate :page-count="totalPage" :click-handler="updatePage" :prev-text="'&laquo;'" :next-text="'&raquo;'"
+          :container-class="'pagination'" :page-class="'page-item'" :page-link-class="'page-link'"
+          :prev-link-class="'page-link'" :next-link-class="'page-link'">
         </paginate>
       </div>
     </div>
@@ -116,6 +92,20 @@ export default {
           description:
             '最受歡迎的前端框架，六角學員們透過此框架完成屬於個人的獨一無二作品。',
           active: 'vue-active',
+        },
+        {
+          name: '切版直播班',
+          course_tag: 'HTML',
+          bg: require('../assets/images/html.png'),
+          description: '用三個月的時間將切版技能練到巔峰！',
+          active: 'html-active',
+        },
+        {
+          name: 'JS',
+          course_tag: 'JS',
+          bg: require('../assets/images/js.png'),
+          description: '從基礎到 AJAX，體驗前端工程師的第一課！',
+          active: 'js-active',
         },
         {
           name: 'Bootstrap',
@@ -200,6 +190,9 @@ export default {
         if (name === '全部') {
           this.categoryText = '';
           this.$router.push('/');
+        } else if (name === '切版直播班') {
+          this.categoryText = 'HTML';
+          this.$router.push('/?tag=HTML');
         } else {
           this.categoryText = name;
           this.$router.push(`/?tag=${name}`);
@@ -313,38 +306,56 @@ export default {
 .main {
   min-height: calc(100vh - 120px);
 }
+
 .banner {
   min-height: 200px;
   background-image: url("../assets/images/banner1920.png");
 }
+
 @media (max-width: 767px) {
   .banner {
     background-image: url("../assets/images/banner1200.png");
   }
 }
+
 .nav-item {
   cursor: pointer;
   min-width: 150px;
 }
+
 .card-img {
   position: relative;
   opacity: 0.6;
   min-height: 65px;
 }
+
 .all-active,
 .All:hover {
   background: #000000;
 }
+
 .vue-active,
 .Vue:hover {
   background: #3eaf7c;
 }
+
 .bootstrap-active,
 .Bootstrap:hover {
   background: #7952b3;
 }
+
 .ui-active,
 .UI:hover {
   background: #2962ff;
+}
+
+.html-active,
+.HTML:hover {
+  background: #005856;
+}
+
+.js-active,
+.JS:hover {
+  background: #8E240E;
 }
 </style>

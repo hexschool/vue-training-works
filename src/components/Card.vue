@@ -130,6 +130,10 @@ export default {
         this.bgTag = 'bootstrap';
       } else if (this.cards.course_tag === 'UI') {
         this.bgTag = 'ui';
+      } else if (this.cards.course_tag === 'HTML') {
+        this.bgTag = 'html';
+      } else if (this.cards.course_tag === 'JS') {
+        this.bgTag = 'js';
       }
     },
   },
@@ -184,6 +188,12 @@ export default {
 }
 .ui {
   background: #2962ff;
+}
+.js {
+  background: #8E240E;
+}
+.html {
+  background: #005856;
 }
 .z-index {
   z-index: 4;
