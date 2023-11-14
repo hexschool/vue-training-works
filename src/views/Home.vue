@@ -1,39 +1,21 @@
 <template>
   <div class="main">
     <div class="container">
-      <nav class="mb-4">
-        <ul class="
-            nav
-            row
-            justify-content-start
-            justify-content-md-center
-            align-items-center
-            flex-nowrap
-            overflow-auto
-            scrollBar
-          ">
-          <li v-for="(item, id) in navigatorList" :key="id" class="nav-item col-2"
-            @click="tagClicked(item.name, item.description)">
-            <div class="card text-white">
-              <img :src="item.bg" class="card-img" :alt="item.name" />
-              <div class="
-                  card-img-overlay
-                  d-flex
-                  justify-content-center
-                  align-items-center
-                " :class="[
-                  item.course_tag,
-                  activeFn(item)]">
-                <h5 class="card-title text-center mb-0">{{ item.name }}</h5>
-              </div>
-            </div>
+      <nav class="my-4">
+        <ul class="nav nav-pills justify-content-start justify-content-md-center flex-nowrap overflow-auto scrollBar">
+          <li v-for="(item, id) in navigatorList" :key="id" class="nav-item ">
+            <a href="#" class="nav-link fs-5" :class="{ 'active': item.active }" @click.prevent="tagClicked(item)">
+              {{ item.name }}
+            </a>
           </li>
         </ul>
       </nav>
-      <h3 class="text-center">{{ courseName }}</h3>
-      <p class="text-center mb-4">
-        {{ courseDescription }}
-      </p>
+      <div class="my-6">
+        <h3 class="h4 text-center mb-3">{{ courseName }}</h3>
+        <p class="text-center fw-normal mb-4">
+          {{ courseDescription }}
+        </p>
+      </div>
 
       <form class="row justify-content-center align-items-center mb-6">
         <div class="col-md-4 mb-2 mb-md-0">
@@ -55,7 +37,7 @@
         <Card :cards="item" v-for="item in filter[currentPage]" :key="item.id" />
       </div>
 
-      <div class="d-flex justify-content-center">
+      <div class="d-flex justify-content-center" v-if="pageState">
         <paginate :page-count="totalPage" :click-handler="updatePage" :prev-text="'&laquo;'" :next-text="'&raquo;'"
           :container-class="'pagination'" :page-class="'page-item'" :page-link-class="'page-link'"
           :prev-link-class="'page-link'" :next-link-class="'page-link'">
@@ -78,51 +60,66 @@ export default {
     return {
       navigatorList: [
         {
+          id: 0,
           name: '全部',
           course_tag: 'All',
-          bg: require('@/assets/images/all.png'),
+          // bg: require('@/assets/images/all.png'),
           description:
             '六角學員作品牆，學員們依據自己的創意完成一屬於個人獨一無二的作品。',
-          active: 'all-active',
+          active: false,
         },
         {
+          id: 1,
           name: 'Vue',
           course_tag: 'Vue',
-          bg: require('../assets/images/vue.png'),
+          // bg: require('../assets/images/vue.png'),
           description:
             '最受歡迎的前端框架，六角學員們透過此框架完成屬於個人的獨一無二作品。',
-          active: 'vue-active',
+          active: false,
         },
         {
+          id: 2,
           name: '切版直播班',
           course_tag: 'HTML',
-          bg: require('../assets/images/html.png'),
+          // bg: require('../assets/images/html.png'),
           description: '用三個月的時間將切版技能練到巔峰！',
-          active: 'html-active',
+          active: false,
         },
         {
+          id: 3,
+          name: 'Node',
+          course_tag: 'Node',
+          // bg: require('../assets/images/ui.png'),
+          description: '團隊共同完成的 Node.js 專案。',
+          active: false,
+        },
+        {
+          id: 4,
           name: 'JS',
           course_tag: 'JS',
-          bg: require('../assets/images/js.png'),
+          // bg: require('../assets/images/js.png'),
           description: '從基礎到 AJAX，體驗前端工程師的第一課！',
-          active: 'js-active',
+          active: false,
         },
         {
+          id: 5,
           name: 'Bootstrap',
           course_tag: 'Bootstrap',
-          bg: require('../assets/images/bootstrap.png'),
+          // bg: require('../assets/images/bootstrap.png'),
           description:
             '使用 Bootstrap 快速完成切版版型，從設計稿到可觀賞網頁的不二選擇！',
-          active: 'bootstrap-active',
+          active: false,
         },
         {
+          id: 6,
           name: 'UI',
           course_tag: 'UI',
-          bg: require('../assets/images/ui.png'),
+          // bg: require('../assets/images/ui.png'),
           description: '好的設計讓網站品質大加分！',
-          active: 'ui-active',
+          active: false,
         },
       ],
+      pageState: true,
       courseName: '',
       courseDescription: '',
       searchText: '', // 搜尋文字
@@ -184,58 +181,53 @@ export default {
 
       this.categoryData();
     },
-    tagClicked(name, description) {
-      if (name) {
-        // 透過點擊上方分類進來
-        if (name === '全部') {
-          this.categoryText = '';
-          this.$router.push('/');
-        } else if (name === '切版直播班') {
-          this.categoryText = 'HTML';
-          this.$router.push('/?tag=HTML');
-        } else {
-          this.categoryText = name;
-          this.$router.push(`/?tag=${name}`);
+    tagClicked(item) {
+      this.navigatorList.forEach((list) => {
+        if (list.id === item.id) {
+          // eslint-disable-next-line no-param-reassign, no-return-assign
+          return list.active = true;
         }
-        this.courseName = name;
-        this.courseDescription = description;
+        // eslint-disable-next-line no-param-reassign
+        list.active = false;
+      });
+
+      if (item?.name) {
+        // 透過點擊上方分類進來
+        if (item?.name === '全部') {
+          this.categoryText = '';
+        } else if (item?.name === '切版直播班') {
+          this.categoryText = 'HTML';
+        } else {
+          this.categoryText = item?.name;
+        }
+        this.courseName = item?.name;
+        this.courseDescription = item?.description;
       } else {
         // 透過網址分類進來
         this.categoryText = this.$route.query.tag;
-        this.navigatorList.forEach((item) => {
+        this.navigatorList.forEach((navigator) => {
           if (!this.categoryText) {
             this.courseName = '全部';
             this.courseDescription = '六角學員作品牆，學員們依據自己的創意完成一屬於個人獨一無二的作品。';
-          } else if (item.course_tag === this.categoryText) {
-            this.courseName = item.name;
-            this.courseDescription = item.description;
+          } else if (navigator.course_tag === this.categoryText) {
+            this.courseName = navigator.name;
+            this.courseDescription = navigator.description;
           }
         });
       }
-
       this.tagSelectText = ''; // 切換時課程改為預設全部
-
       this.categoryData();
-    },
-    activeFn(item) {
-      if (this.categoryText === item.name) {
-        return item.active;
-      }
-      if (!this.categoryText && item.name === '全部') {
-        return 'all-active';
-      }
-      return '';
     },
     categoryData() {
       // 根據 course_tag 篩選 Card
       this.cacheData = this.sourceData.filter((item) => item.course_tag.match(this.categoryText));
 
       // 放入課程卡片
-      this.courseList.forEach((item) => {
-        if (this.categoryText === item.course_tag) {
-          this.cacheData.splice(3, 0, item);
-        }
-      });
+      // this.courseList.forEach((item) => {
+      //   if (this.categoryText === item.course_tag) {
+      //     this.cacheData.splice(3, 0, item);
+      //   }
+      // });
     },
     selectFilter() {
       // 篩出下拉選單的項目
@@ -285,18 +277,31 @@ export default {
   },
   watch: {
     filter() {
+      this.pageState = false;
       this.totalPage = this.filter.length; // 分頁數量
       this.currentPage = 0;
+      setTimeout(() => {
+        this.pageState = true;
+      }, 0);
     },
     categoryText() {
       this.tagsSelect = this.selectFilter();
-    },
-    $route() {
-      this.tagClicked();
+
+      if (this.$route.query?.tag === this.categoryText) return;
+      this.$router.push({
+        query: {
+          tag: this.categoryText,
+        },
+      });
     },
   },
   async created() {
-    this.tagClicked();
+    if (this.$route.query?.tag) {
+      const index = this.navigatorList.findIndex((item) => item.course_tag === this.$route.query?.tag);
+      this.tagClicked(this.navigatorList[index]);
+    } else {
+      this.tagClicked(this.navigatorList[0]);
+    }
     await this.getData();
   },
 };
@@ -307,55 +312,19 @@ export default {
   min-height: calc(100vh - 120px);
 }
 
-.banner {
-  min-height: 200px;
-  background-image: url("../assets/images/banner1920.png");
+.nav-link {
+  font-weight: 500;
+  padding-left: 40px;
+  padding-right: 40px;
+  white-space:nowrap;
 }
 
-@media (max-width: 767px) {
-  .banner {
-    background-image: url("../assets/images/banner1200.png");
-  }
+.nav-link.active {
+  background-color: #E7E7E7;
+  color: #005856;
+  font-weight: 700;
 }
-
-.nav-item {
-  cursor: pointer;
-  min-width: 150px;
-}
-
-.card-img {
-  position: relative;
-  opacity: 0.6;
-  min-height: 65px;
-}
-
-.all-active,
-.All:hover {
-  background: #000000;
-}
-
-.vue-active,
-.Vue:hover {
-  background: #3eaf7c;
-}
-
-.bootstrap-active,
-.Bootstrap:hover {
-  background: #7952b3;
-}
-
-.ui-active,
-.UI:hover {
-  background: #2962ff;
-}
-
-.html-active,
-.HTML:hover {
-  background: #005856;
-}
-
-.js-active,
-.JS:hover {
-  background: #8E240E;
+.nav-pills .nav-link{
+  border-radius: 24px;
 }
 </style>

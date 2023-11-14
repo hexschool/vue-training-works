@@ -5,10 +5,6 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '*',
-    redirect: '/',
-  },
-  {
     path: '/',
     component: () => import('../views/Layout.vue'),
     children: [
