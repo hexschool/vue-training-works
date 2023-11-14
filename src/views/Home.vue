@@ -187,8 +187,8 @@ export default {
           // eslint-disable-next-line no-param-reassign, no-return-assign
           return list.active = true;
         }
-        // eslint-disable-next-line no-param-reassign
-        list.active = false;
+        // eslint-disable-next-line no-param-reassign, no-return-assign
+        return list.active = false;
       });
 
       if (item?.name) {

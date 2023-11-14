@@ -1,7 +1,7 @@
 <template>
   <div class="col-md-6 col-lg-4" v-if="cards.is_display === '是' && cards['六角審核'] === 'TRUE'">
     <div class="card" @mouseover="hover = true" @mouseleave="hover = false">
-      <div class="position-relative">
+      <div class="position-relative" style="height: 312px;background-color: #d9d9d9;">
         <template v-if="cards.thumbnail_small">
           <img
             :src="cards.thumbnail_small"
