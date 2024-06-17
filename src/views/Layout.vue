@@ -55,7 +55,7 @@
             "
           >
             <span class="mr-md-5 font-weight-bold text-left"
-              >Vue 直播班｜熱烈報名中</span
+              >6/21 即將漲價｜2024 切版直播班</span
             >
 
             <div class="d-flex justify-content-start text-white text-nowrap">
@@ -73,11 +73,11 @@
             "
           >
             <a
-              href="https://www.hexschool.com/courses/vue-training.html"
+              href="https://www.hexschool.com/courses/web-layout-training-1st.html"
               target="_blank"
               class="btn btn-dark btn-sm rounded-0"
             >
-              連結
+              現折 $5,200
               <i class="fa fa-arrow-right" aria-hidden="true"></i>
             </a>
           </div>
@@ -103,7 +103,7 @@ export default {
   },
   methods: {
     countDown() {
-      const countDownDate = new Date('Nov 30 2022 23:59:59').getTime();
+      const countDownDate = new Date('Jun 20 2024 23:59:59').getTime();
 
       setInterval((x) => {
         const now = new Date().getTime();
