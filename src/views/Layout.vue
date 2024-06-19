@@ -77,7 +77,7 @@
               target="_blank"
               class="btn btn-dark btn-sm rounded-0"
             >
-              現折 $5200
+              現折 $5,200
               <i class="fa fa-arrow-right" aria-hidden="true"></i>
             </a>
           </div>
