@@ -55,7 +55,7 @@
             "
           >
             <span class="mr-md-5 font-weight-bold text-left"
-              >6/21 即將漲價｜2024 切版直播班</span
+              >最後報名機會 已破 330 人報名<br class="d-md-none d-block" />｜2024 切版直播班</span
             >
 
             <div class="d-flex justify-content-start text-white text-nowrap">
@@ -77,7 +77,7 @@
               target="_blank"
               class="btn btn-dark btn-sm rounded-0"
             >
-              現折 $5,200
+            晚鳥 66 折
               <i class="fa fa-arrow-right" aria-hidden="true"></i>
             </a>
           </div>
@@ -103,7 +103,7 @@ export default {
   },
   methods: {
     countDown() {
-      const countDownDate = new Date('Jun 20 2024 23:59:59').getTime();
+      const countDownDate = new Date('Jun 30 2024 23:59:59').getTime();
 
       setInterval((x) => {
         const now = new Date().getTime();
