@@ -12,9 +12,14 @@
       </nav>
       <div class="my-6">
         <h3 class="h4 text-center mb-3">{{ courseName }}</h3>
-        <p class="text-center fw-normal mb-4">
+        <p class="text-center fw-normal mb-3">
           {{ courseDescription }}
         </p>
+        <div class="d-flex justify-content-center">
+          <div class="mx-1" v-for="link in courseRelLinks" :key="link.routeName">
+            <a :href="link.url" class="btn btn-outline-secondary" target="_blank">{{ link.urlText }}</a>
+          </div>
+        </div>
       </div>
 
       <form class="row justify-content-center align-items-center mb-6">
@@ -65,8 +70,13 @@ export default {
           course_tag: 'All',
           // bg: require('@/assets/images/all.png'),
           description:
-            '六角學員作品牆，學員們依據自己的創意完成一屬於個人獨一無二的作品。',
+            '六角學員作品牆，程式新手也能完成獨一無二的網頁作品。',
           active: false,
+          relLinks: [{
+            routeName: 'all-courses',
+            url: 'https://www.hexschool.com/courses/?category=all-courses',
+            urlText: '我也想做出專屬作品！',
+          }],
         },
         {
           id: 1,
@@ -74,24 +84,43 @@ export default {
           course_tag: 'Vue',
           // bg: require('../assets/images/vue.png'),
           description:
-            '最受歡迎的前端框架，六角學員們透過此框架完成屬於個人的獨一無二作品。',
+            '使用業界熱門框架完成求職作品，提升職場競爭力！',
           active: false,
+          relLinks: [{
+            routeName: 'vue3',
+            url: 'https://www.hexschool.com/courses/vue3.html',
+            urlText: '前往 Vue 影音課',
+          }, {
+            routeName: 'vue-training',
+            url: 'https://www.hexschool.com/courses/vue-training.html',
+            urlText: '前往 Vue 直播班',
+          }],
         },
         {
           id: 2,
           name: '切版直播班',
           course_tag: 'HTML',
           // bg: require('../assets/images/html.png'),
-          description: '用三個月的時間將切版技能練到巔峰！',
+          description: '用三個月的時間，將切版技能練到巔峰。',
           active: false,
+          relLinks: [{
+            routeName: 'web-layout-training-1st',
+            url: 'https://www.hexschool.com/courses/web-layout-training-1st.html',
+            urlText: '我也想提升切版力！',
+          }],
         },
         {
           id: 3,
           name: 'Node',
           course_tag: 'Node',
           // bg: require('../assets/images/ui.png'),
-          description: '團隊共同完成的 Node.js 專案。',
+          description: '團隊共同完成符合商業邏輯的 Node.js 專案。',
           active: false,
+          relLinks: [{
+            routeName: 'node-project-training',
+            url: 'https://www.hexschool.com/courses/node-project-training.html',
+            urlText: '完成專案，提升競爭力！',
+          }],
         },
         {
           id: 4,
@@ -100,6 +129,11 @@ export default {
           // bg: require('../assets/images/js.png'),
           description: '從基礎到 AJAX，體驗前端工程師的第一課！',
           active: false,
+          relLinks: [{
+            routeName: 'js-training',
+            url: 'https://www.hexschool.com/courses/js-training.html',
+            urlText: '循序漸進掌握 JS 邏輯',
+          }],
         },
         {
           id: 5,
@@ -109,19 +143,30 @@ export default {
           description:
             '使用 Bootstrap 快速完成切版版型，從設計稿到可觀賞網頁的不二選擇！',
           active: false,
+          relLinks: [{
+            routeName: 'bootstrap5',
+            url: 'https://www.hexschool.com/courses/bootstrap5.html',
+            urlText: '掌握業界必備網頁設計框架！',
+          }],
         },
         {
           id: 6,
           name: 'UI',
           course_tag: 'UI',
           // bg: require('../assets/images/ui.png'),
-          description: '好的設計讓網站品質大加分！',
+          description: '好的設計，讓網站品質大加分！',
           active: false,
+          relLinks: [{
+            routeName: 'ui',
+            url: 'https://www.hexschool.com/courses/ui.html',
+            urlText: '我也想畫出有程式邏輯的設計稿！',
+          }],
         },
       ],
       pageState: true,
       courseName: '',
       courseDescription: '',
+      courseRelLinks: [],
       searchText: '', // 搜尋文字
       tagSelectText: '', // 標籤下拉文字
       tagsSelect: [], // 標籤下拉
@@ -202,6 +247,7 @@ export default {
         }
         this.courseName = item?.name;
         this.courseDescription = item?.description;
+        this.courseRelLinks = item?.relLinks;
       } else {
         // 透過網址分類進來
         this.categoryText = this.$route.query.tag;
@@ -209,9 +255,15 @@ export default {
           if (!this.categoryText) {
             this.courseName = '全部';
             this.courseDescription = '六角學員作品牆，學員們依據自己的創意完成一屬於個人獨一無二的作品。';
+            this.courseRelLinks = [{
+              routeName: 'all-courses',
+              url: 'https://www.hexschool.com/courses/?category=all-courses',
+              urlText: '我也想做出專屬作品！',
+            }];
           } else if (navigator.course_tag === this.categoryText) {
             this.courseName = navigator.name;
             this.courseDescription = navigator.description;
+            this.courseRelLinks = item?.relLinks;
           }
         });
       }
