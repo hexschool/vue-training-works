@@ -134,6 +134,8 @@ export default {
         this.bgTag = 'html';
       } else if (this.cards.course_tag === 'JS') {
         this.bgTag = 'js';
+      } else if (this.cards.course_tag === 'Node') {
+        this.bgTag = 'node';
       }
     },
   },
@@ -194,6 +196,9 @@ export default {
 }
 .html {
   background: #005856;
+}
+.node {
+  background: #27866b;
 }
 .z-index {
   z-index: 4;
