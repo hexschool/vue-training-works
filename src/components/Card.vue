@@ -1,7 +1,7 @@
 <template>
   <div class="col-md-6 col-lg-4" v-if="cards.is_display === '是' && cards['六角審核']">
     <div class="card" @mouseover="hover = true" @mouseleave="hover = false">
-      <div class="position-relative">
+      <div class="position-relative" style="height: 312px;background-color: #d9d9d9;">
         <template v-if="cards.thumbnail_small">
           <img
             :src="cards.thumbnail_small"
@@ -130,6 +130,12 @@ export default {
         this.bgTag = 'bootstrap';
       } else if (this.cards.course_tag === 'UI') {
         this.bgTag = 'ui';
+      } else if (this.cards.course_tag === 'HTML') {
+        this.bgTag = 'html';
+      } else if (this.cards.course_tag === 'JS') {
+        this.bgTag = 'js';
+      } else if (this.cards.course_tag === 'Node') {
+        this.bgTag = 'node';
       }
     },
   },
@@ -184,6 +190,15 @@ export default {
 }
 .ui {
   background: #2962ff;
+}
+.js {
+  background: #8E240E;
+}
+.html {
+  background: #005856;
+}
+.node {
+  background: #27866b;
 }
 .z-index {
   z-index: 4;

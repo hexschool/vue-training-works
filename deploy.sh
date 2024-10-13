@@ -53,6 +53,7 @@ echo ${osStatus} " 目前遠端分支: ${originUrl} "
 echo ${osStatus} "==============================================================${norm}"
 
 # sleep 1s
+
 split=${originUrl:0:5}
 status='';
 if [ $split = 'https' ]
@@ -153,7 +154,9 @@ echo ${osStatus} "${yellow}=====================================================
 echo ${osStatus} " 5 秒後部署檔案到遠端分支 "
 echo ${osStatus} " ＊如要停止動作請按下 CRTL + C or Control + C"
 echo ${osStatus} "==============================================================${norm}"
+
 # sleep 5s
+
 git push -f $originUrl master:gh-pages
 
 echo
